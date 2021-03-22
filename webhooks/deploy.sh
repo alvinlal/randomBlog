@@ -1,5 +1,5 @@
 #!/bin/bash
-cp ./views/maintenance.html maintenance.html &&
+cp ./maintenance/maintenance.html maintenance.html &&
 git pull origin master &&
 composer update && composer install &&
 rm maintenance.html &&
