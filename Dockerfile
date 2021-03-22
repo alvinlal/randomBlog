@@ -37,19 +37,19 @@ RUN tar -C /usr/local -xzf go1.16.linux-amd64.tar.gz
 RUN export PATH=$PATH:/usr/local/go/bin && go get github.com/adnanh/webhook
 
 # copying apache configuration file
-COPY ./randomBlog.conf /etc/apache2/sites-available/
+COPY ./randomblog.conf /etc/apache2/sites-available/
 
 # setting ServerName variable in apache config 
-RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+RUN echo "ServerName randomblog" >> /etc/apache2/apache2.conf
 
 # making root directory of our app
-RUN mkdir /var/www/randomBlog
+RUN mkdir /var/www/randomblog
 
 # enabling rewrite engine in apache
 RUN a2enmod rewrite
 
 # enabling our app
-RUN a2ensite randomBlog
+RUN a2ensite randomblog
 
 # removing default apache site
 RUN a2dissite 000-default
@@ -61,13 +61,13 @@ RUN apache2ctl configtest
 RUN service apache2 restart
 
 # change working directory to our app directory
-WORKDIR /var/www/randomBlog
+WORKDIR /var/www/randomblog
 
 # copy our app files to our containers app folder
 COPY . .
 
 # giving ownership to apache
-RUN chown -R www-data:www-data /var/www/randomBlog
+RUN chown -R www-data:www-data /var/www/randomblog
 
 # make start script executable
 RUN chmod +x start.sh
